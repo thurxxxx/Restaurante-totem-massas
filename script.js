@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- CARDÁPIO ---
     const menu = {
         lanches: [
             { id: 1, name: "Spaghetti Carbonara", price: 38.00, img: "https://cdn.pixabay.com/photo/2019/10/13/18/25/carbonara-4547230_1280.jpg" },
@@ -71,8 +70,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function removeFromCart(index) {
-        cart.splice(index, 1);
-        updateCart();
+        const cartEl = document.getElementById('cart-demo-items');
+        const li = cartEl.children[index];
+        li.classList.add("fade-out");
+        setTimeout(() => {
+            cart.splice(index, 1);
+            updateCart();
+        }, 300);
     }
 
     function updateCart() {
@@ -83,6 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         cart.forEach((item, i) => {
             const li = document.createElement('li');
+            li.classList.add("slide-in");
             li.innerHTML = `
                 <span>${item.name}</span>
                 <strong>R$ ${item.price.toFixed(2)}</strong>
@@ -91,10 +96,13 @@ document.addEventListener('DOMContentLoaded', () => {
             cartEl.appendChild(li);
             total += item.price;
         });
+
         totalEl.textContent = `R$ ${total.toFixed(2)}`;
+        totalEl.classList.add("pulse");
+        setTimeout(() => totalEl.classList.remove("pulse"), 600);
     }
 
-    // --- COMBOS INTELIGENTES (Diferencial) ---
+    // --- COMBOS INTELIGENTES ---
     function checkComboSuggestion() {
         for (let combo of menu.combos) {
             const hasItems = combo.includes.every(id => cart.some(c => c.id === id));
@@ -108,13 +116,65 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- AUXILIAR ---
     function findItemById(id) {
         for (const cat in menu) {
             const found = menu[cat].find(i => i.id === id);
             if (found) return found;
         }
         return null;
+    }
+
+    // --- FINALIZAR PEDIDO COM ANIMAÇÃO + NOTA ---
+    document.getElementById('cart-demo-checkout-btn').addEventListener('click', () => {
+        if (cart.length > 0) {
+            const nota = gerarNota();
+            exibirNota(nota);
+            cart = [];
+            updateCart();
+        } else {
+            alert('Seu carrinho está vazio!');
+        }
+    });
+
+    function gerarNota() {
+        const total = cart.reduce((a,b) => a+b.price,0);
+        let nota = "===== LA TAVOLA DI NAPOLI =====\n";
+        nota += "Comanda do Cliente\n\n";
+        cart.forEach(item => {
+            nota += `${item.name} - R$ ${item.price.toFixed(2)}\n`;
+        });
+        nota += "\n----------------------------\n";
+        nota += `TOTAL: R$ ${total.toFixed(2)}\n`;
+        nota += "Obrigado e buon appetito!";
+        return nota;
+    }
+
+    function exibirNota(texto) {
+        const overlay = document.createElement('div');
+        overlay.classList.add("overlay");
+
+        const modal = document.createElement('div');
+        modal.classList.add("nota-modal");
+        modal.innerHTML = `
+            <h2>✅ Pedido Confirmado!</h2>
+            <pre>${texto}</pre>
+            <button id="baixarNota">Baixar Nota</button>
+            <button id="fecharNota">Fechar</button>
+        `;
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+
+        document.getElementById('baixarNota').addEventListener('click', () => {
+            const blob = new Blob([texto], { type: "text/plain" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "nota.txt";
+            link.click();
+        });
+
+        document.getElementById('fecharNota').addEventListener('click', () => {
+            overlay.remove();
+        });
     }
 
     // --- EVENTOS ---
@@ -125,18 +185,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (e.target.classList.contains('remove-item')) {
             removeFromCart(parseInt(e.target.dataset.index));
-        }
-    });
-
-    document.getElementById('cart-demo-checkout-btn').addEventListener('click', () => {
-        if (cart.length > 0) {
-            alert("✅ Pedido realizado com sucesso!\n\n" +
-                  cart.map(i => `${i.name} - R$ ${i.price.toFixed(2)}`).join("\n") +
-                  `\n\nTotal: R$ ${cart.reduce((a,b) => a+b.price,0).toFixed(2)}`);
-            cart = [];
-            updateCart();
-        } else {
-            alert('Seu carrinho está vazio!');
         }
     });
 
