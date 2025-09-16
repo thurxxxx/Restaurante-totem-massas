@@ -1,128 +1,101 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Tavola di Napoli - Cucina Italiana</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital,wght@1,500&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>La Tavola di Napoli - Totem</title>
+  <link href="style.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital,wght@1,500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="main-header">
-        <div class="header-content">
-            <img src="https://cdn.pixabay.com/photo/2017/08/07/22/37/spaghetti-2609646_1280.jpg" alt="La Tavola di Napoli" class="header-img">
-            <div>
-                <h1>La Tavola di Napoli</h1>
-                <p>Sabores autênticos da Itália em cada prato. Massas artesanais, receitas tradicionais e a verdadeira experiência italiana.</p>
-                <a href="#cardapio" class="cta-btn">Conheça o Cardápio</a>
-            </div>
+  <div id="kiosk" class="kiosk">
+    <header class="kiosk-header">
+      <div class="brand">
+        <img src="https://cdn.pixabay.com/photo/2017/08/07/22/37/spaghetti-2609646_1280.jpg" alt="La Tavola di Napoli" class="brand-logo">
+        <div>
+          <h1>La Tavola di Napoli</h1>
+          <p class="tag">Cucina Italiana • Massas artesanais</p>
         </div>
+      </div>
+      <div class="header-actions">
+        <div class="order-summary" id="top-summary">
+          <span id="top-items">0 itens</span> • <strong id="top-total">R$ 0,00</strong>
+        </div>
+        <button id="open-cart-btn" class="icon-btn">Carrinho 🛒</button>
+      </div>
     </header>
 
-    <nav class="menu-nav">
-        <a href="#sobre">Sobre</a>
-        <a href="#cardapio">Cardápio</a>
-        <a href="#contato">Contato</a>
-    </nav>
+    <main class="kiosk-main">
+      <nav class="kiosk-nav" id="menu-tabs">
+        <button data-tab="massas" class="tab-btn active">Massas</button>
+        <button data-tab="acompanhamentos" class="tab-btn">Antipasti</button>
+        <button data-tab="bebidas" class="tab-btn">Bebidas</button>
+        <button data-tab="sobremesas" class="tab-btn">Sobremesas</button>
+        <button data-tab="combos" class="tab-btn">Combos</button>
+      </nav>
 
-    <main>
-        <section id="sobre" class="beneficios-section">
-            <h2>Bem-vindo à La Tavola di Napoli</h2>
-            <div class="beneficios-grid">
-                <div>
-                    <img src="https://cdn.pixabay.com/photo/2017/06/02/18/24/italian-2367854_1280.jpg" alt="Tradição Italiana">
-                    <h3>Tradição</h3>
-                    <p>Receitas de família passadas por gerações, trazendo a essência da verdadeira cozinha italiana.</p>
-                </div>
-                <div>
-                    <img src="https://cdn.pixabay.com/photo/2018/01/22/07/38/wine-3094098_1280.jpg" alt="Qualidade">
-                    <h3>Qualidade</h3>
-                    <p>Ingredientes frescos, massas feitas à mão e vinhos selecionados para harmonizar cada prato.</p>
-                </div>
-                <div>
-                    <img src="https://cdn.pixabay.com/photo/2017/09/01/12/24/dinner-2704157_1280.jpg" alt="Experiência">
-                    <h3>Experiência</h3>
-                    <p>Ambiente acolhedor e sofisticado para celebrar momentos especiais com quem você ama.</p>
-                </div>
+      <section class="menu-area" id="menu-area">
+        </section>
+
+      <aside class="cart-panel" id="cart-panel" aria-hidden="true">
+        <div class="cart-header">
+          <h2>Seu Pedido</h2>
+          <button id="close-cart-btn" class="icon-btn">✕</button>
+        </div>
+
+        <ul id="cart-items" class="cart-items">
+          </ul>
+
+        <div class="cart-footer">
+          <div class="cart-totals">
+            <div><span>Subtotal</span><span id="subtotal">R$ 0,00</span></div>
+            <div><span>Taxa (10%)</span><span id="tax">R$ 0,00</span></div>
+            <div class="total-row"><strong>Total</strong><strong id="grand-total">R$ 0,00</strong></div>
+          </div>
+
+          <div class="payment-section">
+            <label for="payment-method">Forma de pagamento</label>
+            <select id="payment-method">
+              <option value="card">Cartão (simulado)</option>
+              <option value="cash">Dinheiro</option>
+              <option value="pix">PIX</option>
+            </select>
+
+            <div id="payment-extra" class="payment-extra">
+              </div>
+
+            <div class="buttons-row">
+              <button id="checkout-btn" class="primary-btn">Finalizar Pedido</button>
+              <button id="clear-cart-btn" class="ghost-btn">Limpar</button>
             </div>
-        </section>
 
-        <section id="cardapio" class="demo-section">
-            <h2>Nosso Cardápio</h2>
-            <div class="demo-grid">
-                <div class="menu-demo">
-                    <h3>Massas</h3>
-                    <div class="grid-section">
-                        <div class="menu-item">
-                            <img src="https://cdn.pixabay.com/photo/2019/10/13/18/25/carbonara-4547230_1280.jpg" alt="Spaghetti Carbonara">
-                            <h3>Spaghetti Carbonara</h3>
-                            <p class="price">R$ 38,00</p>
-                        </div>
-                        <div class="menu-item">
-                            <img src="https://cdn.pixabay.com/photo/2016/12/11/22/41/lasagna-1900529_1280.jpg" alt="Lasagna alla Bolognese">
-                            <h3>Lasagna alla Bolognese</h3>
-                            <p class="price">R$ 42,00</p>
-                        </div>
-                        <div class="menu-item">
-                            <img src="https://cdn.pixabay.com/photo/2015/04/08/13/13/food-712665_1280.jpg" alt="Fettuccine al Pesto">
-                            <h3>Fettuccine al Pesto</h3>
-                            <p class="price">R$ 37,00</p>
-                        </div>
-                        <div class="menu-item">
-                            <img src="https://cdn.pixabay.com/photo/2018/07/18/19/12/ravioli-3547432_1280.jpg" alt="Ravioli di Ricotta">
-                            <h3>Ravioli di Ricotta</h3>
-                            <p class="price">R$ 40,00</p>
-                        </div>
-                    </div>
-
-                    <h3>Antipasti</h3>
-                    <div class="grid-section">
-                        <div class="menu-item">
-                            <img src="https://cdn.pixabay.com/photo/2018/04/20/14/23/bruschetta-3336423_1280.jpg" alt="Bruschetta al Pomodoro">
-                            <h3>Bruschetta al Pomodoro</h3>
-                            <p class="price">R$ 22,00</p>
-                        </div>
-                        <div class="menu-item">
-                            <img src="https://cdn.pixabay.com/photo/2019/08/21/11/17/focaccia-4420367_1280.jpg" alt="Focaccia com Alecrim">
-                            <h3>Focaccia com Alecrim</h3>
-                            <p class="price">R$ 18,00</p>
-                        </div>
-                    </div>
-
-                    <h3>Sobremesas</h3>
-                    <div class="grid-section">
-                        <div class="menu-item">
-                            <img src="https://cdn.pixabay.com/photo/2016/02/19/11/53/tiramisu-1209542_1280.jpg" alt="Tiramisù">
-                            <h3>Tiramisù</h3>
-                            <p class="price">R$ 20,00</p>
-                        </div>
-                        <div class="menu-item">
-                            <img src="https://cdn.pixabay.com/photo/2017/02/08/13/28/pannacotta-2045108_1280.jpg" alt="Panna Cotta">
-                            <h3>Panna Cotta</h3>
-                            <p class="price">R$ 18,00</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="differentials">
+              <p><strong>Diferenciais:</strong></p>
+              <ul>
+                <li>Upsell inteligente: sugerimos combos para aumentar o ticket.</li>
+                <li>Programa de fidelidade: a cada R$100 acumulados ganha 1 cupom de 10%.</li>
+                <li>Nota fiscal e comanda imprimível/baixável.</li>
+              </ul>
             </div>
-        </section>
-
-        <section id="contato" class="contato-section">
-            <h2>Reservas & Contato</h2>
-            <form id="contato-form">
-                <input type="text" placeholder="Seu nome" required>
-                <input type="email" placeholder="Seu e-mail" required>
-                <input type="tel" placeholder="WhatsApp/Telefone" required>
-                <textarea placeholder="Mensagem ou reserva" required></textarea>
-                <button type="submit">Enviar</button>
-            </form>
-            <p id="contato-sucesso"></p>
-        </section>
+          </div>
+        </div>
+      </aside>
     </main>
 
-    <footer>
-        <p>&copy; 2025 La Tavola di Napoli - A verdadeira experiência italiana.</p>
+    <footer class="kiosk-footer">
+      <div class="footer-left">
+        <small>La Tavola di Napoli • Totem de Pedidos</small>
+      </div>
+      <div class="footer-right">
+        <small id="estimated-time">Tempo estimado: —</small>
+      </div>
     </footer>
+  </div>
 
-    <script src="script.js"></script>
+  <div id="overlay" class="overlay hidden" aria-hidden="true">
+    <div id="modal" class="modal"></div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
